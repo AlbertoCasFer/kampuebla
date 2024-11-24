@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Datos</title>
+  <link rel="icon" href="img/icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="form-container">
+    <h2>Formulario de Datos</h2>
+    <form id="dataForm">
+      <!-- Campos existentes -->
+      <label for="sellOut2023">Sell Out 2023:</label>
+      <input type="number" id="sellOut2023" name="sellOut2023" placeholder="Ej. 10524153"><br>
+
+      <label for="sellOut2024">Sell Out 2024:</label>
+      <input type="number" id="sellOut2024" name="sellOut2024" placeholder="Ej. 11720000"><br>
+
+      <label for="sellIn2023">Sell In 2023:</label>
+      <input type="number" id="sellIn2023" name="sellIn2023" placeholder="Ej. 100000"><br>
+
+      <label for="sellIn2024">Sell In 2024:</label>
+      <input type="number" id="sellIn2024" name="sellIn2024" placeholder="Ej. 12480156"><br>
+
+      <label for="forecast2024">Forecast 2024:</label>
+      <input type="number" id="forecast2024" name="forecast2024" placeholder="Ej. 13000000"><br>
+
+      <label for="fillRate">Fill Rate (%):</label>
+      <input type="number" id="fillRate" name="fillRate" placeholder="Ej. 74"><br>
+
+      <label for="ddiProm">DDI Promedio:</label>
+      <input type="number" id="ddiProm" name="ddiProm" placeholder="Ej. 24"><br>
+
+      <button type="submit">Actualizar Datos</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('dataForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      // Cargar datos existentes del Local Storage
+      const storedData = JSON.parse(localStorage.getItem('dashboardData')) || {};
+
+      // Capturar valores del formulario
+      const updatedData = {
+        ...storedData,
+        sellOut2023: document.getElementById('sellOut2023').value || storedData.sellOut2023,
+        sellOut2024: document.getElementById('sellOut2024').value || storedData.sellOut2024,
+        sellIn2023: document.getElementById('sellIn2023').value || storedData.sellIn2023,
+        sellIn2024: document.getElementById('sellIn2024').value || storedData.sellIn2024,
+        forecast2024: document.getElementById('forecast2024').value || storedData.forecast2024,
+        fillRate: document.getElementById('fillRate').value || storedData.fillRate,
+        ddiProm: document.getElementById('ddiProm').value || storedData.ddiProm,
+      };
+
+      // Guardar datos en Local Storage
+      localStorage.setItem('dashboardData', JSON.stringify(updatedData));
+
+      // Redirigir al dashboard
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario Mensual</title>
+  <link rel="icon" href="img/icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="form-container">
+    <h2>Formulario Mensual</h2>
+    <form id="monthlyDataForm">
+      <!-- Campos para valores mensuales -->
+      <label for="sellOutMensual">Sell Out del Mes:</label>
+      <input type="number" id="sellOutMensual" name="sellOutMensual" placeholder="Ej. 250000"><br>
+
+      <label for="sellInMensual">Sell In del Mes:</label>
+      <input type="number" id="sellInMensual" name="sellInMensual" placeholder="Ej. 200000"><br>
+
+      <label for="piezasOrdenadas">Piezas Ordenadas:</label>
+      <input type="number" id="piezasOrdenadas" name="piezasOrdenadas" placeholder="Ej. 50000"><br>
+
+      <label for="piezasConCita">Piezas con Cita:</label>
+      <input type="number" id="piezasConCita" name="piezasConCita" placeholder="Ej. 30000"><br>
+
+      <label for="piezasSinCita">Piezas sin Cita:</label>
+      <input type="number" id="piezasSinCita" name="piezasSinCita" placeholder="Ej. 20000"><br>
+
+      <label for="forecastMensual">Forecast del Mes:</label>
+      <input type="number" id="forecastMensual" name="forecastMensual" placeholder="Ej. 1000000"><br>
+
+
+      <button type="submit">Actualizar Datos</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('monthlyDataForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      // Cargar datos existentes del Local Storage
+      const storedData = JSON.parse(localStorage.getItem('dashboardData')) || {};
+
+      // Capturar valores del formulario
+      const updatedData = {
+        ...storedData,
+        sellOutMensual: document.getElementById('sellOutMensual').value || storedData.sellOutMensual,
+        sellInMensual: document.getElementById('sellInMensual').value || storedData.sellInMensual,
+        piezasOrdenadas: document.getElementById('piezasOrdenadas').value || storedData.piezasOrdenadas,
+        piezasConCita: document.getElementById('piezasConCita').value || storedData.piezasConCita,
+        piezasSinCita: document.getElementById('piezasSinCita').value || storedData.piezasSinCita,
+        facturadoMes: document.getElementById('sellOutMensual').value || storedData.facturadoMes, // Actualiza facturadoMes
+      };
+
+      // Guardar datos en Local Storage
+      localStorage.setItem('dashboardData', JSON.stringify(updatedData));
+
+      // Redirigir al dashboard
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+</body>
+
+</html>

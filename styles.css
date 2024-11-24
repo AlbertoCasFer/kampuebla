@@ -1,0 +1,1073 @@
+/* General */
+body {
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 0;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+		url('img/DALL·E\ 2024-11-22\ 14.43.30\ -\ A\ surreal\ and\ vibrant\ background\ featuring\ water\ droplets\ dripping\ down\ and\ explosions\ of\ watercolor\ splashes\ in\ various\ vivid\ colors\ like\ blue\,\ red\,\ .webp')
+			no-repeat center center fixed;
+	background-size: cover; /* Escala la imagen para cubrir todo el fondo */
+	color: #333;
+}
+
+/* Header */
+/* Header */
+header {
+	background-color: #fff;
+	padding: 10px 20px; /* Ajusta el padding para reducir la altura */
+	display: flex; /* Flexbox para alinear elementos */
+	align-items: center; /* Centra verticalmente los elementos */
+	justify-content: space-between; /* Espacio entre logo y botones */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	border-color: 2px solid #87cefa;
+	border-radius: 8px;
+	height: auto; /* Ajusta automáticamente según el contenido */
+	margin: 0 auto; /* Centra el header horizontalmente */
+	max-width: 1200px; /* Ancho máximo del header */
+}
+
+/* Logo */
+.header-logo {
+	max-width: 150px; /* Tamaño máximo del logo */
+	height: auto; /* Ajusta la altura automáticamente */
+}
+
+/* Botones */
+.header-buttons {
+	display: flex; /* Flexbox para alinear botones */
+	gap: 15px; /* Espaciado entre botones */
+}
+
+.header-button {
+	background-color: #87cefa; /* Azul claro */
+	color: #fff; /* Texto blanco */
+	padding: 8px 16px; /* Tamaño del botón */
+	border: none; /* Sin borde */
+	border-radius: 5px; /* Bordes redondeados */
+	font-size: 14px; /* Tamaño del texto */
+	font-weight: bold; /* Texto en negritas */
+	cursor: pointer; /* Mano al pasar sobre el botón */
+	transition: background-color 0.3s ease; /* Animación de hover */
+}
+
+.header-button:hover {
+	background-color: #4682b4; /* Cambia a azul oscuro al pasar el mouse */
+}
+
+/* Ajuste responsivo */
+@media (max-width: 600px) {
+	header {
+		flex-direction: column; /* Apila el logo y botones */
+		align-items: center; /* Centra los elementos */
+	}
+
+	.header-buttons {
+		flex-wrap: wrap; /* Permite que los botones se ajusten a varias filas */
+		justify-content: center; /* Centra los botones */
+		gap: 10px; /* Reduce el espaciado en pantallas pequeñas */
+	}
+}
+
+.button-container {
+	text-align: center;
+	margin: 20px 0;
+}
+
+.button-container button {
+	padding: 10px 20px;
+	background-color: #87cefa;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.button-container button:hover {
+	background-color: #ff9800;
+}
+
+/* Dashboard container */
+.dashboard {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+/* Metrics container */
+.metrics-container {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr); /* Cinco columnas iguales */
+	gap: 20px; /* Espaciado entre los divs */
+	margin: 20px auto; /* Centrado horizontal */
+	max-width: 1200px; /* Ancho máximo */
+}
+
+/* Individual metric */
+.metric {
+	background-color: #fff;
+	border: 2px solid #87cefa;
+	border-radius: 8px;
+	padding: 10px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column; /* Apila los elementos verticalmente */
+	align-items: center; /* Centra horizontalmente */
+	justify-content: center; /* Centra verticalmente */
+}
+
+/* Metric icon */
+.metric-icon {
+	width: 55px;
+	height: 55px;
+	margin-bottom: 10px; /* Espacio entre el ícono y el texto */
+}
+
+/* Metric text */
+.metric h2 {
+	font-size: 16px;
+	color: #4682b4;
+	margin: 5px 0;
+	text-align: center;
+}
+
+.metric p {
+	font-size: 16px;
+	font-weight: bold;
+	color: #333;
+	margin: 0;
+	text-align: center;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 900px) {
+	.metrics-container {
+		grid-template-columns: repeat(
+			2,
+			1fr
+		); /* Dos columnas en pantallas medianas */
+	}
+}
+
+@media (max-width: 600px) {
+	.metrics-container {
+		grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+	}
+}
+
+/* Contenedor de las gráficas */
+.charts-wrapper {
+	margin: 20px auto;
+	padding: 10px;
+	max-width: 1200px; /* Ancho máximo igual al del header */
+	box-sizing: border-box; /* Incluye padding dentro del ancho total */
+}
+
+/* Contenedor general de las gráficas */
+.charts-container {
+	display: grid;
+	grid-template-columns: repeat(
+		3,
+		1fr
+	); /* Tres columnas iguales para las gráficas */
+	gap: 20px; /* Espacio uniforme entre las gráficas */
+	width: 100%; /* Asegura que ocupe el ancho completo del contenedor */
+}
+
+/* Contenedor individual de cada gráfica */
+.chart-container {
+	background-color: #fff;
+	border: 2px solid #87cefa;
+	border-radius: 8px;
+	padding: 10px;
+	box-sizing: border-box; /* Incluye padding dentro del ancho total */
+	display: flex;
+	flex-direction: column; /* Asegura que el contenido de la gráfica esté apilado */
+	justify-content: center; /* Centra verticalmente el contenido */
+	align-items: center; /* Centra horizontalmente el contenido */
+}
+
+/* Canvas de las gráficas */
+.chart-container canvas {
+	width: 100% !important; /* Obliga al canvas a ocupar todo el ancho del contenedor */
+	height: 100% !important; /* Mantiene una altura consistente */
+}
+
+/* Ajustes responsivos */
+@media (max-width: 900px) {
+	.charts-container {
+		grid-template-columns: repeat(
+			2,
+			1fr
+		); /* Dos columnas en pantallas medianas */
+	}
+
+	.chart-container canvas {
+		height: 250px !important; /* Reduce la altura para pantallas medianas */
+	}
+}
+
+@media (max-width: 600px) {
+	.charts-container {
+		grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
+	}
+
+	.chart-container canvas {
+		height: 200px !important; /* Ajusta la altura para pantallas pequeñas */
+	}
+}
+
+/* Contenedor del zoom, inicialmente oculto */
+.zoom-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.8);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Contenido de la gráfica en zoom */
+.zoom-content {
+	width: 90%;
+	max-width: 800px;
+	background: #fff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Activa el zoom (muestra el contenedor) */
+.zoom-overlay.active {
+	opacity: 1;
+	visibility: visible;
+}
+
+/* Estilo para el canvas */
+canvas {
+	width: 100%;
+	height: auto;
+}
+
+/* General: Contenedor de la barra de progreso */
+.metric {
+	width: 100%;
+	max-width: 1200px; /* Ajusta al mismo ancho máximo del contenedor de gráficas */
+	margin: 0 auto; /* Centra el div.metric dentro de su contenedor padre */
+	text-align: center; /* Centra el texto dentro del contenedor */
+}
+
+/* Estilo de la barra de progreso */
+.progress-container {
+	width: 100%;
+	height: 10px;
+	background-color: #e0e0e0;
+	border-radius: 5px;
+	overflow: hidden;
+	margin: 10px 0; /* Espaciado alrededor de la barra */
+}
+
+.progress-bar {
+	height: 100%;
+	background-color: #4caf50;
+	width: 0%; /* Ajustado dinámicamente por JavaScript */
+	transition: width 0.4s ease;
+}
+
+#soProgressValue {
+	text-align: center;
+	font-size: 0.9rem;
+	color: #333;
+	margin-top: 5px;
+}
+
+/* Ya incluido en el CSS de la barra anterior */
+.progress-container {
+	width: 100%;
+	max-width: 1200px; /* Ajusta al mismo ancho máximo del contenedor de gráficas */
+	height: 10px;
+	background-color: #e0e0e0;
+	border-radius: 5px;
+	overflow: hidden;
+	margin: 10px auto; /* Centra la barra dentro del contenedor */
+}
+
+.progress-bar {
+	height: 100%;
+	background-color: #4caf50;
+	width: 0%; /* Ajustado dinámicamente por JavaScript */
+	transition: width 0.4s ease;
+}
+
+#projectionProgressValue {
+	text-align: center;
+	font-size: 0.9rem;
+	color: #333;
+	margin-top: 5px;
+}
+
+/* General: Estilo de las tablas */
+.tables-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	justify-content: space-between;
+	padding: 20px;
+	max-width: 1200px; /* Ajusta al ancho máximo del header */
+	margin: 0 auto; /* Centra las tablas */
+}
+
+.table-wrapper {
+	flex: 1 1 calc(33.333% - 20px); /* Tres columnas en pantallas grandes */
+	max-width: 100%;
+	background-color: #fff; /* Fondo blanco */
+	border: 2px solid #87cefa; /* Borde azul claro */
+	border-radius: 8px; /* Esquinas redondeadas */
+	overflow-x: auto; /* Scroll horizontal en caso de tablas muy anchas */
+	margin: 10px 0;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse; /* Evitar bordes dobles */
+}
+
+th,
+td {
+	padding: 10px;
+	border: 1px solid #ddd; /* Borde interno */
+}
+
+th {
+	background-color: #87cefa /* Fondo azul claro */ color #fff /* Texto blanco */
+		font-weight bold text-align center; /* Centra encabezados */
+}
+
+td {
+	text-align: left; /* Contenido general alineado a la izquierda */
+}
+
+td.numeric {
+	text-align: center; /* Alinea números al centro */
+}
+
+h3 {
+	margin: 10px;
+	font-size: 1.2rem;
+	color: #333;
+	text-align: center; /* Centra los títulos de las tablas */
+}
+
+/* Responsividad: Dispositivo móvil */
+@media (max-width: 764px) {
+	.tables-container {
+		flex-direction: column; /* Agrupa las tablas en una sola columna */
+	}
+
+	.table-wrapper {
+		flex: 1 1 100%; /* Cada tabla ocupa todo el ancho */
+	}
+}
+.pie-chart-container {
+	width: 50%; /* Reduce el ancho al 50% */
+	max-width: 300px; /* Limita el tamaño máximo */
+	margin: 20px auto; /* Centra la gráfica */
+}
+
+.pie-chart-container canvas {
+	width: 100%; /* Ajusta el canvas al contenedor */
+	height: auto; /* Mantén la proporción */
+}
+
+#formatBarChartContainer {
+	width: 50%; /* Reducir el tamaño del contenedor al 50% */
+	margin: auto; /* Centrar la gráfica */
+}
+
+/* Contenedor del formulario */
+
+.form-container h2 {
+	text-align: center; /* Centra el texto */
+	text-transform: uppercase; /* Convierte el texto a mayúsculas */
+	color: black; /* Color blanco para que combine con el fondo */
+	font-weight: bold; /* Hace el texto más grueso */
+	margin-bottom: 20px; /* Espaciado inferior */
+	font-size: 18px; /* Ajusta el tamaño del texto */
+}
+
+.form-container {
+	padding: 20px;
+	margin: 20px auto;
+	max-width: 400px;
+	background: #87cefa; /* Fondo oscuro */
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+}
+
+/* Estilo de los labels */
+.form-container label {
+	display: block;
+	color: white; /* Texto blanco */
+	font-weight: bold; /* Letra gruesa */
+	margin-bottom: 8px; /* Espaciado con el input */
+	font-size: 14px;
+}
+
+/* Estilo de los inputs */
+.form-container input {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 20px; /* Espaciado entre campos */
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+	box-sizing: border-box;
+}
+
+/* Botón Actualizar Datos */
+.form-container button {
+	width: 100%;
+	padding: 10px 15px;
+	background-color: #27ae60; /* Verde */
+	color: white; /* Texto blanco */
+	font-size: 16px;
+	font-weight: bold;
+	border: none;
+	border-radius: 8px; /* Bordes redondeados */
+	cursor: pointer;
+	margin-top: 20px; /* Separación superior */
+	text-align: center;
+}
+
+/* Hover en el botón */
+.form-container button:hover {
+	background-color: #1e8449; /* Verde más oscuro */
+}
+
+.metrics-container-second {
+	display: flex; /* Alinear los divs en una fila */
+	gap: 15px; /* Espaciado uniforme entre los divs */
+	justify-content: space-between; /* Distribuir uniformemente los divs */
+	align-items: center; /* Alinear verticalmente los elementos */
+	max-width: 1200px; /* Limitar el ancho máximo al de las barras de progreso */
+	margin: 20px auto; /* Centrar el contenedor y dar espacio arriba/abajo */
+	padding: 10px 20px; /* Agregar un padding interno */
+	box-sizing: border-box; /* Incluir el padding en el ancho total */
+}
+
+.metric {
+	background-color: #fff;
+	border: 2px solid #87cefa;
+	border-radius: 8px;
+	padding: 10px;
+	box-sizing: border-box;
+	text-align: center; /* Centrar contenido dentro del div */
+	flex: 1; /* Hacer que los divs se distribuyan uniformemente */
+	min-width: 150px; /* Ancho mínimo para evitar que los divs colapsen */
+}
+@media (max-width: 900px) {
+	.metrics-container-second {
+		overflow-x: auto; /* Habilitar scroll horizontal si es necesario */
+		flex-wrap: nowrap; /* Prevenir que los divs bajen a otra fila */
+	}
+
+	.metric {
+		flex: 0 0 auto; /* Asegurar que los divs mantengan su tamaño mínimo */
+	}
+}
+@media (max-width: 764px) {
+	.metrics-container-second {
+		flex-direction: column; /* Cambia los divs a disposición vertical */
+		align-items: center; /* Centra los divs en el eje horizontal */
+		gap: 20px; /* Aumenta el espacio entre los divs */
+	}
+
+	.metric {
+		width: 90%; /* Haz que cada div ocupe el 90% del ancho disponible */
+		max-width: 500px; /* Limita el ancho máximo de los divs */
+	}
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+	background-color: white;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 30%;
+	text-align: center;
+	border-radius: 10px;
+}
+
+.modal-content input {
+	width: 90%;
+	margin-bottom: 10px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.modal-content button {
+	padding: 10px 20px;
+	border: none;
+	background-color: #4caf50;
+	color: white;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.modal-content button:hover {
+	background-color: #45a049;
+}
+
+/* Contenedor general del formulario de registro */
+.form-container {
+	max-width: 900px; /* Incrementar ancho (antes 600px, ahora 50% más) */
+	padding: 30px; /* Incrementar padding para acomodar el nuevo tamaño */
+	margin: 0 auto;
+	background-color: #fff;
+	border: 2px solid #87cefa;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/* Título del formulario */
+.form-container h2 {
+	font-size: 28px; /* Incrementar tamaño de fuente */
+	font-weight: bold;
+	margin-bottom: 30px;
+	color: #4682b4;
+	text-transform: uppercase;
+}
+
+/* Labels del formulario */
+.form-container label {
+	display: block;
+	margin-bottom: 10px;
+	font-size: 18px; /* Incrementar tamaño de fuente */
+	color: #333;
+	text-align: left;
+	font-weight: bold;
+}
+
+/* Campos de entrada */
+.form-container input {
+	width: calc(100% - 40px); /* Ajustar ancho */
+	padding: 12px; /* Incrementar padding */
+	margin-bottom: 20px; /* Incrementar espacio inferior */
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 16px; /* Incrementar tamaño de fuente */
+	box-sizing: border-box;
+}
+
+/* Botones */
+.form-container button {
+	padding: 12px 30px; /* Incrementar padding */
+	font-size: 18px; /* Incrementar tamaño de fuente */
+	font-weight: bold;
+	color: #fff;
+	background-color: #4682b4;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-top: 15px;
+}
+
+.form-container button:hover {
+	background-color: #5a9bd4;
+}
+
+/* Botón de volver */
+.form-container .back-button {
+	background-color: #ccc;
+	color: #333;
+}
+
+.form-container .back-button:hover {
+	background-color: #aaa;
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+	.form-container {
+		width: 90%;
+	}
+
+	.form-container h2 {
+		font-size: 24px;
+	}
+
+	.form-container input {
+		font-size: 14px;
+	}
+
+	.form-container button {
+		font-size: 16px;
+	}
+}
+
+/* Estilo general para el contenedor de autenticación */
+.auth-container {
+	max-width: 400px;
+	padding: 20px;
+	background-color: #f9f9f9;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+	text-align: center;
+
+	/* Centrado absoluto */
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/* Estilo para el logo */
+.auth-container .logo {
+	display: block;
+	margin: 0 auto 20px;
+	width: 250px; /* Tamaño del logo */
+}
+
+/* Estilo general para los encabezados */
+.auth-container h2 {
+	margin-bottom: 20px;
+	font-size: 1.5rem;
+	color: #333;
+}
+
+/* Estilo de los labels y campos de entrada */
+.auth-container label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+	color: #333;
+}
+
+.auth-container input {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+
+/* Botón de envío */
+.auth-container button {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 1rem;
+}
+
+.auth-container button:hover {
+	background-color: #0056b3;
+}
+
+/* Contenedor de las botellas */
+.bottle-container {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 1;
+}
+
+.left-bottle {
+	left: 200px;
+}
+
+.right-bottle {
+	right: 200px;
+}
+
+/* Imagen de las botellas */
+.bottle {
+	width: 150px;
+	height: auto;
+	animation: float 3s ease-in-out infinite;
+}
+
+/* Animación de movimiento flotante */
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+/* CSS responsivo para ocultar botellas animadas en móviles */
+@media screen and (max-width: 768px) {
+	.bottle-container {
+		display: none;
+	}
+
+	.auth-container {
+		width: 90%; /* Ajustar el tamaño del formulario en pantallas pequeñas */
+	}
+}
+
+/* Contenedor principal del formulario */
+.form-container {
+	max-width: 400px;
+	padding: 20px;
+	background-color: #f9f9f9;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+	text-align: center;
+
+	/* Centrado absoluto */
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/* Estilo para el logo (si lo deseas agregar) */
+.form-container .logo {
+	max-width: 250px;
+	margin: 0 auto 20px;
+}
+
+/* Encabezado del formulario */
+.form-container h2 {
+	margin-bottom: 20px;
+	font-size: 1.5rem;
+	color: #333;
+}
+
+/* Etiquetas de los campos */
+.form-container label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+	color: #333;
+}
+
+/* Campos de entrada */
+.form-container input {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+
+/* Botones */
+.form-container button {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 1rem;
+}
+
+.form-container button:hover {
+	background-color: #0056b3;
+}
+
+/* Botón de volver */
+.form-container .back-button {
+	background-color: #6c757d;
+	margin-top: 10px;
+}
+
+.form-container .back-button:hover {
+	background-color: #5a6268;
+}
+
+/* Contenedor principal del panel de administración */
+.admin-container {
+	max-width: 800px;
+	padding: 30px;
+	background: linear-gradient(135deg, #ffffff, #e6f7ff);
+	box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+	border-radius: 15px;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Animación de aparición */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translate(-50%, -60%);
+	}
+	to {
+		opacity: 1;
+		transform: translate(-50%, -50%);
+	}
+}
+
+/* Estilo para el logo */
+.admin-container .logo {
+	max-width: 250px;
+	margin: 0 auto 20px;
+}
+
+/* Estilo del título */
+.admin-container h2 {
+	margin-bottom: 25px;
+	font-size: 2rem;
+	color: #0056b3;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+}
+
+/* Botones del panel de control */
+.button-container button {
+	margin: 10px;
+	padding: 12px 25px;
+	font-size: 1rem;
+	border: none;
+	border-radius: 8px;
+	background: linear-gradient(90deg, #007bff, #0056b3);
+	color: white;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.button-container button:hover {
+	background: linear-gradient(90deg, #0056b3, #007bff);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Lista de usuarios */
+#userListContainer {
+	margin-top: 20px;
+}
+
+#userList {
+	list-style-type: none;
+	padding: 0;
+}
+
+#userList li {
+	margin: 8px 0;
+	font-size: 1rem;
+	font-weight: bold;
+	color: #333;
+}
+
+/* Agregado de transición para hover */
+#userList li:hover {
+	color: #007bff;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+	.admin-container {
+		max-width: 90%;
+		padding: 20px;
+	}
+
+	.button-container button {
+		font-size: 0.9rem;
+		padding: 10px 20px;
+	}
+}
+
+/* CAMBIO EN LOS BOTONES DEL DASHBOARD */
+/* Contenedor principal del dashboard */
+.dashboard-container {
+	max-width: 1200px;
+	margin: 50px auto;
+	padding: 20px;
+	text-align: center;
+}
+
+/* Encabezado del dashboard */
+.dashboard-container header {
+	margin-bottom: 20px;
+}
+
+.dashboard-container header img {
+	max-width: 250px;
+	margin: 0 auto;
+	display: block;
+}
+
+/* Contenedor de botones */
+.dashboard-container .button-container {
+	margin-top: 20px;
+}
+
+/* Botones del dashboard */
+.dashboard-container .button-container button {
+	margin: 10px;
+	padding: 10px 20px;
+	font-size: 16px;
+	border: none;
+	border-radius: 5px;
+	background-color: #007bff;
+	color: white;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Efecto hover en los botones */
+.dashboard-container .button-container button:hover {
+	background-color: #0056b3;
+	transform: scale(1.05);
+}
+
+/* Efecto de enfoque en los botones */
+.dashboard-container .button-container button:focus {
+	outline: none;
+	box-shadow: 0 0 8px rgba(0, 123, 255, 0.8);
+}
+
+/* Contenedor de los botones en el header */
+.header-buttons {
+	display: flex;
+	justify-content: center;
+	gap: 20px; /* Espaciado entre los botones */
+	margin-top: 20px;
+}
+
+/* Botones del header */
+.header-button {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	font-size: 16px;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar efecto flotante */
+}
+
+/* Hover en los botones */
+.header-button:hover {
+	background-color: #0056b3;
+	transform: scale(1.05); /* Efecto de ampliación */
+}
+
+/* Botón activo o con foco */
+.header-button:focus {
+	outline: none;
+	box-shadow: 0 0 8px rgba(0, 123, 255, 0.8); /* Resaltar al hacer clic */
+}
+
+/* Contenedor para las botellas en una fila */
+.bottle-progress-row {
+	display: flex; /* Usa flexbox para alinear las botellas en una fila */
+	justify-content: space-between; /* Espacio uniforme entre las botellas */
+	align-items: flex-end; /* Alinea las botellas en la parte inferior */
+	margin: 20px auto;
+	max-width: 700px; /* Ancho máximo del contenedor */
+}
+
+/* Animación de movimiento para las botellas */
+.moving-bottle {
+	animation: move-bottle 3s ease-in-out infinite; /* Animación suave */
+}
+
+/* Keyframes para el movimiento */
+@keyframes move-bottle {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-15px);
+	}
+}
+
+/* Contenedor individual de la botella */
+.bottle-progress-container {
+	position: relative;
+	width: 150px; /* Ajusta el tamaño de las botellas */
+	text-align: center;
+}
+
+/* Título encima de la botella */
+.bottle-progress-title {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: white;
+	margin-bottom: 10px;
+	text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+}
+
+/* Contenedor de la imagen y relleno */
+.bottle-wrapper {
+	position: relative;
+	width: 100%;
+}
+
+/* Imagen de la botella */
+.bottle-image {
+	width: 100%;
+	height: auto;
+}
+
+/* Relleno dinámico */
+.bottle-fill {
+	position: absolute;
+	bottom: 8%;
+	left: 22%; /* Ajustado según la forma de la botella */
+	width: 56%; /* Ajustado según la forma de la botella */
+	height: 0%; /* Inicialmente vacío */
+	background: linear-gradient(to top, white, #aaa);
+	border-radius: 5px;
+	z-index: 0;
+	transition: height 0.5s ease-in-out;
+}
+
+/* Texto de porcentaje */
+.progress-text {
+	position: absolute;
+	bottom: 12%; /* Alineado dentro de la botella */
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 1.2rem;
+	font-weight: bold;
+	color: white;
+	z-index: 2;
+	text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+}

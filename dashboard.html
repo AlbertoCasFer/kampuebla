@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="img/icon.png">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+
+
+
+</head>
+
+<body>
+
+  <div class="dashboard">
+
+    <header>
+      <img src="img/logoelectrolit.svg" alt="Logo Electrolit" class="header-logo">
+      <div class="header-buttons">
+        <button class="header-button">Rivera</button>
+        <button class="header-button">EL Toro</button>
+        <button class="header-button" onclick="window.location.href='index.html';">Cerrar Sesión</button>
+      </div>
+
+    </header>
+    <br>
+
+
+    <div class="metrics-container">
+      <!-- Métrica de Sell In 2023 y Sell In 2024 -->
+      <div class="metric">
+        <img src="img/IconBFresa.jpeg" alt="Icono Sell In" class="metric-icon">
+        <div class="metric-text">
+          <h2>Sell In 2023</h2>
+          <p id="sellIn2023Value"></p><br> <!-- ID único para Sell In 2023 -->
+          <h2>Sell In 2024</h2>
+          <p class="sellIn2024Display"></p><br> <!-- Clase común para Sell In 2024 -->
+          <p id="porcentajeCambioSellIn" class="metric-percentage"></p> <!-- Nuevo cálculo automático -->
+        </div>
+      </div>
+
+      <!-- Métrica de Sell Out 2023 y Sell Out 2024 -->
+      <div class="metric">
+        <img src="img/icon.png" alt="Icono Sell Out" class="metric-icon">
+        <div class="metric-text">
+          <h2>Sell Out 2023</h2>
+          <p id="sellOut2023Value"></p><br> <!-- ID único para Sell Out 2023 -->
+          <h2>Sell Out 2024</h2>
+          <p class="sellOut2024Display"></p><br> <!-- Clase común para Sell Out 2024 -->
+          <p id="porcentajeCambio" class="metric-percentage"></p>
+        </div>
+      </div>
+
+      <!-- Métrica de Forecast 2024 y Sell Out 2024 -->
+      <div class="metric">
+        <img src="img/forecasticon.png" alt="Icono Forecast" class="metric-icon">
+        <div class="metric-text">
+          <h2>Forecast 2024</h2>
+          <p id="forecast2024Value"></p><br> <!-- ID único para Forecast 2024 -->
+          <h2>Sell In 2024</h2>
+          <p class="sellIn2024Display"></p><br> <!-- Clase común para Sell In 2024 -->
+          <p id="porcentajeVsForecast2024" class="metric-percentage"></p>
+        </div>
+      </div>
+
+      <!-- Métrica de Sell In 2024 y Sell Out 2024 -->
+      <div class="metric">
+        <img src="img/sellinSelloutIcon.png" alt="Sell In vs Sell Out" class="metric-icon">
+        <div class="metric-text">
+          <h2>Sell In 2024</h2>
+          <p class="sellIn2024Display"></p><br> <!-- Clase común para Sell In 2024 -->
+          <h2>Sell Out 2024</h2>
+          <p class="sellOut2024Display"></p><br> <!-- Clase común para Sell Out 2024 -->
+          <p id="SellOutVsSellIn" class="metric-percentage"></p>
+        </div>
+      </div>
+
+      <!-- Métrica de Fill Rate y DDI Promedio -->
+      <div class="metric">
+        <img src="img/logisticaIcon.png" alt="Logística Icono" class="metric-icon">
+        <div class="metric-text">
+          <h2>Fill Rate</h2>
+          <p id="fillRate"></p><br> <!-- ID único para Fill Rate -->
+          <h2>DDI Promedio</h2>
+          <p id="ddiProm"></p><br> <!-- ID único para DDI Promedio -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gráficas y otros contenidos -->
+  <div class="charts-wrapper">
+    <div class="charts-container">
+      <div class="chart-container" id="chartContainer1">
+
+        <canvas id="salesChart2024"></canvas>
+      </div>
+      <div class="chart-container" id="chartContainer2">
+        <canvas id="salesComparisonChart"></canvas>
+      </div>
+      <div class="chart-container" id="chartContainer3">
+
+        <canvas id="sellInForecastChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor del zoom -->
+  <div id="zoomOverlay" class="zoom-overlay">
+    <div class="zoom-content">
+      <h3 id="zoomTitle"></h3> <!-- Título dinámico -->
+      <canvas id="zoomedChart"></canvas>
+    </div>
+  </div>
+
+  <div class="bottle-progress-row">
+    <!-- Botella 1: Facturado Mensual -->
+    <div class="bottle-progress-container">
+      <div class="bottle-progress-title">Facturado Mensual</div>
+      <div class="bottle-wrapper">
+        <div class="bottle-fill" id="bottleFillFacturado"></div>
+        <div class="progress-text" id="progressTextFacturado">0%</div>
+        <img src="img/bottle-left.png" alt="Botella Electrolit" class="bottle-image moving-bottle">
+      </div>
+    </div>
+
+    <!-- Botella 2: Sell Out 2024 vs Sell Out 2023 -->
+    <div class="bottle-progress-container">
+      <div class="bottle-progress-title">Sell Out 2024 vs 2023</div>
+      <div class="bottle-wrapper">
+        <div class="bottle-fill" id="bottleFillSellOut"></div>
+        <div class="progress-text" id="progressTextSellOut">0%</div>
+        <img src="img/Electrolit-Apple-Front_1080x.png" alt="Botella Electrolit" class="bottle-image moving-bottle">
+      </div>
+    </div>
+
+    <!-- Botella 3: Sell In 2024 vs Sell In 2023 -->
+    <div class="bottle-progress-container">
+      <div class="bottle-progress-title">Sell In 2024 vs 2023</div>
+      <div class="bottle-wrapper">
+        <div class="bottle-fill" id="bottleFillSellIn"></div>
+        <div class="progress-text" id="progressTextSellIn">0%</div>
+        <img src="img/Electrolit-Berry-Bliss-Front_1080x.png" alt="Botella Electrolit"
+          class="bottle-image moving-bottle">
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="metrics-container-second">
+    <div class="metric">
+      <h2>Sell Out Mensual</h2>
+      <p id="sellOutMensualValue"></p>
+    </div>
+
+    <div class="metric">
+      <h2>Sell In Mensual</h2>
+      <p id="sellInMensualValue"></p>
+    </div>
+
+    <div class="metric">
+      <h2>Piezas Ordenadas</h2>
+      <p id="piezasOrdenadasValue"></p>
+    </div>
+
+    <div class="metric">
+      <h2>Piezas con Cita</h2>
+      <p id="piezasConCitaValue"></p>
+    </div>
+
+    <div class="metric">
+      <h2>Piezas sin Cita</h2>
+      <p id="piezasSinCitaValue"></p>
+    </div>
+  </div>
+  <div class="metric">
+    <h2>Forecast Mensual</h2>
+    <p id="forecastMensualValue"></p>
+  </div>
+  <br>
+
+
+
+  <!-- Solo una vez cargar la librería -->
+
+  <script src="js/chart.js"></script>
+  <script src="js/scripts.js"></script>
+  <script src="js/auth.js"></script>
+
+
+
+
+  <!-- formulario datos -->
+  <script>
+    function openForm() {
+      window.location.href = 'formDatos.html'; // 
+    }
+  </script>
+  <script>
+    function openMonthlyForm() {
+      window.location.href = 'formMensual.html'; // Redirige a formMensual.html en la misma pestaña
+    }
+  </script>
+
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración</title>
+  <link rel="icon" href="img/icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="admin-container">
+    <img src="img/logoelectrolit.svg" alt="Logo Electrolit" class="logo">
+    <h2>Panel de Administración</h2>
+    <div class="button-container">
+      <button onclick="window.location.href='register.html';">Registrar Usuario</button>
+      <button onclick="window.location.href='formDatos.html';">Datos Anuales</button>
+      <button onclick="window.location.href='formMensual.html';">Datos Mensuales</button>
+      <button id="deleteUserButton">Eliminar Usuario</button>
+      <button onclick="window.location.href='dashboard.html';">Dashboard</button>
+      <button onclick="window.location.href='index.html';">Login</button>
+    </div>
+    <div id="userListContainer">
+      <h3>Usuarios Registrados:</h3>
+      <ul id="userList"></ul>
+    </div>
+  </div>
+  <script src="js/admin.js"></script>
+</body>
+
+</html>
