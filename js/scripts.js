@@ -1,3 +1,52 @@
+import { database } from './firebase.js';
+import {
+	ref,
+	onValue,
+} from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js';
+
+// Referencia a las métricas en Firebase
+const metricsRef = ref(database, 'metrics');
+
+// Escuchar datos en tiempo real
+onValue(metricsRef, (snapshot) => {
+	const data = snapshot.val();
+	if (data) {
+		document.getElementById('sellIn2023Value').textContent = `${
+			data.sellIn2023 || 0
+		} pzas`;
+		document.getElementById('sellOut2023Value').textContent = `${
+			data.sellOut2023 || 0
+		} pzas`;
+		document
+			.querySelectorAll('.sellIn2024Display')
+			.forEach((el) => (el.textContent = `${data.sellIn2024 || 0} pzas`));
+		document
+			.querySelectorAll('.sellOut2024Display')
+			.forEach((el) => (el.textContent = `${data.sellOut2024 || 0} pzas`));
+		document.getElementById('forecast2024Value').textContent = `${
+			data.forecast2024 || 0
+		} pzas`;
+
+		// Cálculos adicionales
+		if (data.sellIn2023 && data.sellIn2024) {
+			const cambioSellIn =
+				((data.sellIn2024 - data.sellIn2023) / data.sellIn2023) * 100;
+			document.getElementById(
+				'porcentajeCambioSellIn',
+			).textContent = `${cambioSellIn.toFixed(2)}%`;
+		}
+		if (data.sellOut2023 && data.sellOut2024) {
+			const cambioSellOut =
+				((data.sellOut2024 - data.sellOut2023) / data.sellOut2023) * 100;
+			document.getElementById(
+				'porcentajeCambio',
+			).textContent = `${cambioSellOut.toFixed(2)}%`;
+		}
+	} else {
+		console.log('No hay datos en Firebase.');
+	}
+});
+
 document.addEventListener('DOMContentLoaded', () => {
 	// Cargar datos desde Local Storage
 	const storedData = JSON.parse(localStorage.getItem('dashboardData')) || {};
@@ -361,3 +410,82 @@ document.addEventListener('DOMContentLoaded', () => {
 		progressTextSellIn.textContent = `${progresoSellIn.toFixed(1)}%`;
 	}
 });
+
+import { database } from './firebase.js';
+import {
+	ref,
+	get,
+} from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js';
+
+function showMetricDetails(metricKey) {
+	const modal = document.getElementById('metricDetailsModal');
+	const title = document.getElementById('metricTitle');
+	const description = document.getElementById('metricDescription');
+
+	// Obtener datos de Firebase
+	const metricRef = ref(database, `metrics/${metricKey}`);
+	get(metricRef).then((snapshot) => {
+		if (snapshot.exists()) {
+			const data = snapshot.val();
+			title.textContent = `${metricKey} - Detalles`;
+			description.textContent = `Valor actual: ${data}`;
+			renderMetricChart(metricKey, data); // Renderizar gráfica
+			modal.style.display = 'flex'; // Mostrar modal
+		} else {
+			alert('Datos no disponibles.');
+		}
+	});
+}
+
+function closeMetricDetails() {
+	const modal = document.getElementById('metricDetailsModal');
+	modal.style.display = 'none';
+}
+
+function renderMetricChart(metricKey, data) {
+	const ctx = document.getElementById('metricChart').getContext('2d');
+	new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: ['Actual'],
+			datasets: [
+				{
+					label: metricKey,
+					data: [data],
+					backgroundColor: ['rgba(54, 162, 235, 0.6)'],
+				},
+			],
+		},
+		options: {
+			responsive: true,
+		},
+	});
+}
+
+// Asignar eventos de clic a las métricas
+document.querySelectorAll('.metric').forEach((metric) => {
+	metric.addEventListener('click', () => {
+		const metricKey = metric.getAttribute('data-metric-key'); // Asume que cada métrica tiene un atributo único
+		showMetricDetails(metricKey);
+	});
+});
+
+import { database } from './firebase.js';
+import {
+	ref,
+	get,
+} from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js';
+
+// Prueba de conexión
+const testRef = ref(database, '/metrics');
+get(testRef)
+	.then((snapshot) => {
+		if (snapshot.exists()) {
+			console.log('Datos desde Firebase:', snapshot.val());
+		} else {
+			console.log('No hay datos en Firebase.');
+		}
+	})
+	.catch((error) => {
+		console.error('Error conectando a Firebase:', error);
+	});

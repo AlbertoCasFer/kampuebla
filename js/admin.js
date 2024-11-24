@@ -44,3 +44,32 @@ document.addEventListener('DOMContentLoaded', () => {
 		displayUsers();
 	});
 });
+
+import { database } from './firebase.js';
+import {
+	ref,
+	onValue,
+	remove,
+} from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js';
+
+// Cargar usuarios
+const userList = document.getElementById('userList');
+onValue(ref(database, 'users'), (snapshot) => {
+	userList.innerHTML = ''; // Limpia la lista
+	snapshot.forEach((childSnapshot) => {
+		const user = childSnapshot.key;
+		const li = document.createElement('li');
+		li.textContent = user;
+		userList.appendChild(li);
+	});
+});
+
+// Eliminar usuario
+document.getElementById('deleteUserButton').addEventListener('click', () => {
+	const username = prompt('Ingrese el nombre del usuario a eliminar:');
+	if (username) {
+		remove(ref(database, `users/${username}`))
+			.then(() => alert('Usuario eliminado'))
+			.catch((error) => console.error('Error al eliminar usuario:', error));
+	}
+});

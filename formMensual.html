@@ -62,6 +62,45 @@
       window.location.href = 'dashboard.html';
     });
   </script>
+
+  <script type="module">
+    import { database } from './firebase.js';
+    import { ref, set } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+    // Selecciona el formulario por su ID
+    const form = document.getElementById('formMensual'); // Cambia el ID según el que tenga tu formulario
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault(); // Evita que el formulario se recargue
+
+      // Captura los valores ingresados en el formulario
+      const sellOutMensual = document.getElementById('sellOutMensual').value;
+      const sellInMensual = document.getElementById('sellInMensual').value;
+      const piezasOrdenadas = document.getElementById('piezasOrdenadas').value;
+      const piezasConCita = document.getElementById('piezasConCita').value;
+      const piezasSinCita = document.getElementById('piezasSinCita').value;
+      const forecastMensual = document.getElementById('forecastMensual').value;
+
+      // Guarda los datos en Firebase
+      set(ref(database, 'metricsMensuales'), {
+        sellOutMensual: Number(sellOutMensual),
+        sellInMensual: Number(sellInMensual),
+        piezasOrdenadas: Number(piezasOrdenadas),
+        piezasConCita: Number(piezasConCita),
+        piezasSinCita: Number(piezasSinCita),
+        forecastMensual: Number(forecastMensual),
+      })
+        .then(() => {
+          alert("Datos mensuales actualizados exitosamente.");
+          window.location.href = 'dashboard.html'; // Redirige al dashboard después de guardar
+        })
+        .catch((error) => {
+          console.error("Error al guardar los datos mensuales:", error);
+        });
+    });
+  </script>
+
+
 </body>
 
 </html>

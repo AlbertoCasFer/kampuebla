@@ -39,6 +39,8 @@
     </form>
   </div>
 
+
+
   <script>
     document.getElementById('dataForm').addEventListener('submit', (event) => {
       event.preventDefault();
@@ -65,6 +67,39 @@
       window.location.href = 'dashboard.html';
     });
   </script>
+
+  <script>
+    import { database } from './firebase.js';
+    import { ref, set } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+    const form = document.getElementById('formDatos'); // Asegúrate de que este ID exista en tu formulario
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      // Captura los valores del formulario
+      const sellIn2023 = document.getElementById('sellIn2023').value;
+      const sellOut2023 = document.getElementById('sellOut2023').value;
+      const sellIn2024 = document.getElementById('sellIn2024').value;
+      const sellOut2024 = document.getElementById('sellOut2024').value;
+      const forecast2024 = document.getElementById('forecast2024').value;
+
+      // Guarda los datos en Firebase
+      set(ref(database, 'metrics'), {
+        sellIn2023: Number(sellIn2023),
+        sellOut2023: Number(sellOut2023),
+        sellIn2024: Number(sellIn2024),
+        sellOut2024: Number(sellOut2024),
+        forecast2024: Number(forecast2024),
+      }).then(() => {
+        alert("Datos actualizados exitosamente");
+        window.location.href = 'dashboard.html'; // Regresa al dashboard
+      }).catch((error) => {
+        console.error("Error al actualizar los datos:", error);
+      });
+    });
+  </script>
+
+
 </body>
 
 </html>

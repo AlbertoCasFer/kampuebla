@@ -56,3 +56,31 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Crear usuarios predeterminados
 	createDefaultUsers();
 });
+
+import { database } from './firebase.js';
+import {
+	ref,
+	get,
+} from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js';
+
+document.getElementById('authForm').addEventListener('submit', (event) => {
+	event.preventDefault();
+
+	const username = document.getElementById('username').value.trim();
+	const password = document.getElementById('password').value.trim();
+
+	const usersRef = ref(database, `users/${username}`);
+	get(usersRef)
+		.then((snapshot) => {
+			if (snapshot.exists() && snapshot.val().password === password) {
+				sessionStorage.setItem('loggedUser', username);
+				window.location.href =
+					username === 'lacastillo' ? 'admin.html' : 'dashboard.html';
+			} else {
+				alert('Usuario o contraseña incorrectos');
+			}
+		})
+		.catch((error) => {
+			console.error('Error al autenticar:', error);
+		});
+});
