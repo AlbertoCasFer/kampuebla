@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulario Mensual</title>
-  <link rel="icon" href="img/icon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -13,7 +12,6 @@
   <div class="form-container">
     <h2>Formulario Mensual</h2>
     <form id="monthlyDataForm">
-      <!-- Campos para valores mensuales -->
       <label for="sellOutMensual">Sell Out del Mes:</label>
       <input type="number" id="sellOutMensual" name="sellOutMensual" placeholder="Ej. 250000"><br>
 
@@ -32,75 +30,11 @@
       <label for="forecastMensual">Forecast del Mes:</label>
       <input type="number" id="forecastMensual" name="forecastMensual" placeholder="Ej. 1000000"><br>
 
-
       <button type="submit">Actualizar Datos</button>
     </form>
   </div>
 
-  <script>
-    document.getElementById('monthlyDataForm').addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      // Cargar datos existentes del Local Storage
-      const storedData = JSON.parse(localStorage.getItem('dashboardData')) || {};
-
-      // Capturar valores del formulario
-      const updatedData = {
-        ...storedData,
-        sellOutMensual: document.getElementById('sellOutMensual').value || storedData.sellOutMensual,
-        sellInMensual: document.getElementById('sellInMensual').value || storedData.sellInMensual,
-        piezasOrdenadas: document.getElementById('piezasOrdenadas').value || storedData.piezasOrdenadas,
-        piezasConCita: document.getElementById('piezasConCita').value || storedData.piezasConCita,
-        piezasSinCita: document.getElementById('piezasSinCita').value || storedData.piezasSinCita,
-        facturadoMes: document.getElementById('sellOutMensual').value || storedData.facturadoMes, // Actualiza facturadoMes
-      };
-
-      // Guardar datos en Local Storage
-      localStorage.setItem('dashboardData', JSON.stringify(updatedData));
-
-      // Redirigir al dashboard
-      window.location.href = 'dashboard.html';
-    });
-  </script>
-
-  <script type="module">
-    import { database } from './firebase.js';
-    import { ref, set } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
-
-    // Selecciona el formulario por su ID
-    const form = document.getElementById('formMensual'); // Cambia el ID según el que tenga tu formulario
-
-    form.addEventListener('submit', (event) => {
-      event.preventDefault(); // Evita que el formulario se recargue
-
-      // Captura los valores ingresados en el formulario
-      const sellOutMensual = document.getElementById('sellOutMensual').value;
-      const sellInMensual = document.getElementById('sellInMensual').value;
-      const piezasOrdenadas = document.getElementById('piezasOrdenadas').value;
-      const piezasConCita = document.getElementById('piezasConCita').value;
-      const piezasSinCita = document.getElementById('piezasSinCita').value;
-      const forecastMensual = document.getElementById('forecastMensual').value;
-
-      // Guarda los datos en Firebase
-      set(ref(database, 'metricsMensuales'), {
-        sellOutMensual: Number(sellOutMensual),
-        sellInMensual: Number(sellInMensual),
-        piezasOrdenadas: Number(piezasOrdenadas),
-        piezasConCita: Number(piezasConCita),
-        piezasSinCita: Number(piezasSinCita),
-        forecastMensual: Number(forecastMensual),
-      })
-        .then(() => {
-          alert("Datos mensuales actualizados exitosamente.");
-          window.location.href = 'dashboard.html'; // Redirige al dashboard después de guardar
-        })
-        .catch((error) => {
-          console.error("Error al guardar los datos mensuales:", error);
-        });
-    });
-  </script>
-
-
+  <script src="formMensual.js" type="module"></script>
 </body>
 
 </html>

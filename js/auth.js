@@ -1,43 +1,93 @@
-// Leer usuarios desde localStorage
-const users = JSON.parse(localStorage.getItem('users')) || {};
+import { database } from './firebase.js';
+import {
+	ref,
+	get,
+	set,
+} from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js';
 
-// Función para crear usuarios predeterminados
-function createDefaultUsers() {
-	if (!users['admin']) {
-		users['admin'] = 'admin123'; // Usuario administrador predeterminado
+// ==================== Manejo de Usuarios ====================
+
+// Leer usuarios desde Local Storage o inicializarlos
+const localUsers = JSON.parse(localStorage.getItem('users')) || {};
+
+// Crear usuarios predeterminados en Local Storage
+function createDefaultUsersLocal() {
+	if (!localUsers['admin']) {
+		localUsers['admin'] = 'admin123'; // Usuario administrador predeterminado
 	}
-	if (!users['lacastillo']) {
-		users['lacastillo'] = 'admin1'; // Usuario con acceso al Panel de Control
+	if (!localUsers['lacastillo']) {
+		localUsers['lacastillo'] = 'admin1'; // Usuario con acceso al Panel de Control
 	}
-	localStorage.setItem('users', JSON.stringify(users));
+	localStorage.setItem('users', JSON.stringify(localUsers));
 }
 
-// Función para validar el login
-function validateLogin(username, password) {
-	return users[username] && users[username] === password; // Retorna true si las credenciales son válidas
+// Crear usuarios predeterminados en Firebase
+async function createDefaultUsersFirebase() {
+	const usersRef = ref(database, 'users');
+	const snapshot = await get(usersRef);
+
+	if (!snapshot.exists()) {
+		const defaultUsers = {
+			admin: { password: 'admin123' },
+			lacastillo: { password: 'admin1' },
+		};
+		await set(usersRef, defaultUsers);
+		console.log('Usuarios predeterminados creados en Firebase');
+	}
 }
 
-// Lógica para manejar el formulario de login
-document.addEventListener('DOMContentLoaded', () => {
+// Validar credenciales desde Local Storage
+function validateLoginLocal(username, password) {
+	return localUsers[username] && localUsers[username] === password;
+}
+
+// Validar credenciales desde Firebase
+async function validateLoginFirebase(username, password) {
+	try {
+		const userRef = ref(database, `users/${username}`);
+		const snapshot = await get(userRef);
+
+		if (snapshot.exists() && snapshot.val().password === password) {
+			return true; // Usuario válido
+		}
+		return false; // Usuario inválido
+	} catch (error) {
+		console.error('Error al validar el usuario desde Firebase:', error);
+		return false;
+	}
+}
+
+// ==================== Lógica del Formulario de Login ====================
+
+document.addEventListener('DOMContentLoaded', async () => {
+	// Crear usuarios predeterminados en ambos sistemas
+	createDefaultUsersLocal();
+	await createDefaultUsersFirebase();
+
 	const authForm = document.getElementById('authForm');
 	if (authForm) {
-		authForm.addEventListener('submit', (event) => {
+		authForm.addEventListener('submit', async (event) => {
 			event.preventDefault();
 
 			const username = document.getElementById('username').value.trim();
 			const password = document.getElementById('password').value.trim();
 
-			// Validar las credenciales
-			if (validateLogin(username, password)) {
-				sessionStorage.setItem('loggedUser', username); // Guardar el usuario logueado
+			// Validar credenciales primero en Firebase, luego en Local Storage
+			const isValidFirebase = await validateLoginFirebase(username, password);
+			const isValidLocal = validateLoginLocal(username, password);
+
+			if (isValidFirebase || isValidLocal) {
+				// Guardar el usuario logueado en sessionStorage
+				sessionStorage.setItem('loggedUser', username);
 
 				// Redirigir según el usuario
-				if (username === 'lacastillo' && password === 'admin1') {
+				if (username === 'lacastillo') {
 					window.location.href = 'admin.html'; // Redirigir al panel de control
 				} else {
 					window.location.href = 'dashboard.html'; // Redirigir al dashboard
 				}
 			} else {
+				// Mostrar mensaje de error
 				let errorElement = document.getElementById('authError');
 				if (!errorElement) {
 					// Crear el elemento de error si no existe
@@ -52,35 +102,4 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 	}
-
-	// Crear usuarios predeterminados
-	createDefaultUsers();
-});
-
-import { database } from './firebase.js';
-import {
-	ref,
-	get,
-} from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js';
-
-document.getElementById('authForm').addEventListener('submit', (event) => {
-	event.preventDefault();
-
-	const username = document.getElementById('username').value.trim();
-	const password = document.getElementById('password').value.trim();
-
-	const usersRef = ref(database, `users/${username}`);
-	get(usersRef)
-		.then((snapshot) => {
-			if (snapshot.exists() && snapshot.val().password === password) {
-				sessionStorage.setItem('loggedUser', username);
-				window.location.href =
-					username === 'lacastillo' ? 'admin.html' : 'dashboard.html';
-			} else {
-				alert('Usuario o contraseña incorrectos');
-			}
-		})
-		.catch((error) => {
-			console.error('Error al autenticar:', error);
-		});
 });
